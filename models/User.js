@@ -16,20 +16,24 @@ const userSchema = new Schema(
             unique: true,
             match: [/.+@.+\..+/, 'Please enter a valid email address']
         },
-        thoughts: [thoughtsSchema],
+        thoughts: [{ type: Schema.Types.ObjectId,
+          ref: 'Thought',}],
         friends: [
             {
               type: Schema.Types.ObjectId,
               ref: "User",
             },
           ],
-          toJSON: {
-            virtuals: true,
-          },
-          id: false,
+        
         
         // figure out where to create userSchema and connect it to friendCount
     },
+    {
+      toJSON: {
+        virtuals: true,
+        id: false,
+      },
+    }
 );
 
 // create a virtual called friendCount that retrieves the length of the user's friends array
