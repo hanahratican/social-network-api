@@ -16,12 +16,7 @@ const userSchema = new Schema(
             unique: true,
             match: [/.+@.+\..+/, 'Please enter a valid email address']
         },
-        thoughts: [
-            {
-              type: Schema.Types.ObjectId,
-              ref: "Thought",
-            },
-        ],
+        thoughts: [thoughtsSchema],
         friends: [
             {
               type: Schema.Types.ObjectId,
@@ -37,7 +32,7 @@ const userSchema = new Schema(
     },
 );
 
-// Put schema settings below, create a virtual called friendCount that retrieves the length of the user's friends array
+// create a virtual called friendCount that retrieves the length of the user's friends array
 userSchema.virtual("friendCount").get(function () {
     return this.friends.length;
 })
